@@ -46,15 +46,26 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="125dp" />
+
     <TextView
-        android:id="@+id/ListText"
+        android:id="@+id/PhoneText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Time Interval"
+        android:text="Phone"
         android:layout_marginLeft="30dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="125dp" />
+        android:layout_marginTop="165dp" />
+
+    <TextView
+        android:id="@+id/EmailText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Email"
+        android:layout_marginLeft="30dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="205dp" />
 
     <EditText
         android:id="@+id/NameTextField"
@@ -90,13 +101,55 @@
         android:layout_marginTop="105dp" />
 
     <EditText
-        android:id="@+id/QuantityTextField"
+        android:id="@+id/PhoneTextField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:layout_marginLeft="110dp"
+        android:inputType="phone"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="145dp"
+        android:layout_marginLeft="67dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <EditText
+        android:id="@+id/EmailTextField"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="185dp"
+        android:layout_marginLeft="65dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <TextView
+        android:id="@+id/ListText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="181dp"
+        android:layout_marginTop="241dp"
+        android:text="List"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/ListTextField"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textMultiLine"
+        android:layout_marginLeft="85dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="155dp" />
+        android:layout_marginTop="262dp"/>
+
+    <Button
+        android:id="@+id/SubmitButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="148dp"
+        android:text="Submit"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" />
 </android.support.constraint.ConstraintLayout>
