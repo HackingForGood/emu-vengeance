@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.vengeance.emu.hackingforgood">
+    package="com.vengeance.emu.hackingforgood"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-sdk tools:overrideLibrary="com.firebase.ui.auth"/>
 
     <application
         android:allowBackup="true"
@@ -20,7 +25,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SignUp"
+            android:name=".SignInActivity"
             android:label="@string/title_activity_sign_up"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
