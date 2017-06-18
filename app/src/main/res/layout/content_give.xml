@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.vengeance.emu.hackingforgood.Give">
+    tools:context="com.vengeance.emu.hackingforgood.GiveActivity"
+    tools:showIn="@layout/activity_give">
 
     <TextView
         android:id="@+id/GiveInstructions"
@@ -152,4 +153,5 @@
         android:text="Submit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent" />
+
 </android.support.constraint.ConstraintLayout>

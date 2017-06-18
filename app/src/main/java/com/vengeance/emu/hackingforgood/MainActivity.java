@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         mFirebaseAuth = FirebaseAuth.getInstance();
         if(mFirebaseAuth.getCurrentUser() != null) {
             // Already signed in
-            startActivity(new Intent(this, Give.class));
+            startActivity(new Intent(this, HomeActivity.class));
         } else {
             // Not signed in
             Log.d(TAG, "Not signed in.");

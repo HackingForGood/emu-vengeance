@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.vengeance.emu.hackingforgood"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.vengeance.emu.hackingforgood">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-sdk tools:overrideLibrary="com.firebase.ui.auth" />
 
-    <uses-sdk tools:overrideLibrary="com.firebase.ui.auth"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
         android:allowBackup="true"
@@ -25,12 +30,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SignInActivity"
-            android:label="@string/title_activity_sign_up"
+            android:name=".HomeActivity"
+            android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Give"
+            android:name=".GiveActivity"
             android:label="@string/title_activity_give"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".TakeActivity"
+            android:label="@string/title_activity_take"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
