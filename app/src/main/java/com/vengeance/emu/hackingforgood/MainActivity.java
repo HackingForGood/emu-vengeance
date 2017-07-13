@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,7 +31,8 @@ import java.util.Arrays;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
-    private static final int RC_SIGN_IN = 1;
+    protected static final int RC_SIGN_IN = 1;
+    protected static final int RC_TAKE = 2;
     private static final String ANONYMOUS = "Anonymous";
 
     private ListView mOffersListView;
@@ -42,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mDatabaseReference;
+    private ChildEventListener mChildEventListener;
 
 
     @Override
@@ -66,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Give food!", Snackbar.LENGTH_LONG).show();
+                // TODO startActivityForResult
                 startActivity(new Intent(getApplicationContext(), GiveActivity.class));
             }
         });
@@ -74,7 +78,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Take food!", Snackbar.LENGTH_LONG).show();
-                startActivity(new Intent(getApplicationContext(), TakeActivity.class));
+                startActivityForResult(new Intent(getApplicationContext(), TakeActivity.class),
+                        RC_TAKE);
             }
         });
 
@@ -84,8 +89,10 @@ public class MainActivity extends AppCompatActivity {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if(user != null) {
                     // Already signed in
-                    onSignInInitialize(user.getDisplayName());
-                    Toast.makeText(MainActivity.this, "Welcome to Snack Swap!", Toast.LENGTH_SHORT).show();
+                    String name = user.getDisplayName();
+                    onSignInInitialize(name);
+                    Toast.makeText(MainActivity.this, "Welcome to Snack Swap, " + name + "!",
+                            Toast.LENGTH_SHORT).show();
                 } else {
                     // Not signed in
                     onSignOutCleanUp();
@@ -111,39 +118,54 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void attachDatabaseReadListener() {
-        mDatabaseReference.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                // TODO Add new offer
-            }
+        if(mChildEventListener == null) {
+            mChildEventListener = new ChildEventListener() {
+                @Override
+                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                    // TODO Add new offer
+                }
 
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
+                @Override
+                public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
 
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {}
+                @Override
+                public void onChildRemoved(DataSnapshot dataSnapshot) {}
 
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
+                @Override
+                public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {}
-        });
+                @Override
+                public void onCancelled(DatabaseError databaseError) {}
+            };
+            mDatabaseReference.addChildEventListener(mChildEventListener);
+        }
     }
 
     private void onSignOutCleanUp() {
         mUsername = ANONYMOUS;
-        // Clear adaptor
-        // Detach database read listener
+        // TODO Clear adapter
+        detachDatabaseReadListener();
+    }
+
+    private void detachDatabaseReadListener() {
+        if(mChildEventListener != null) {
+            mDatabaseReference.removeEventListener(mChildEventListener);
+            mChildEventListener = null;
+        }
+
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RC_SIGN_IN) {
+        if(requestCode == RC_SIGN_IN) {
 
-            // Successfully signed in
-            if (resultCode == ResultCodes.OK) {
-
+        } else if(requestCode == RC_TAKE) {
+            if(resultCode == RESULT_OK) {
+                String title = data.getStringExtra("TITLE");
+                Offer offer = new Offer();
+                offer.setTitle(title);
+                offer.setUsername(mUsername);
+                mDatabaseReference.push().setValue(offer);
             }
         }
     }
@@ -192,6 +214,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
+        if(mAuthStateListener != null) {
+            mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
+        }
+        detachDatabaseReadListener();
+        // TODO Clear adapter
     }
 }
