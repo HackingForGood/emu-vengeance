@@ -17,6 +17,11 @@ import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.ResultCodes;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Arrays;
 
@@ -35,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
+    private FirebaseDatabase mFirebaseDatabase;
+    private DatabaseReference mDatabaseReference;
 
 
     @Override
@@ -52,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
         mUsername = ANONYMOUS;
 
         mFirebaseAuth = FirebaseAuth.getInstance();
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        mDatabaseReference = mFirebaseDatabase.getReference().child("offers");
 
         mGiveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if(user != null) {
                     // Already signed in
-                    onSignInInitialize();
+                    onSignInInitialize(user.getDisplayName());
                     Toast.makeText(MainActivity.this, "Welcome to Snack Swap!", Toast.LENGTH_SHORT).show();
                 } else {
                     // Not signed in
@@ -96,11 +105,35 @@ public class MainActivity extends AppCompatActivity {
         };
     }
 
-    private void onSignInInitialize() {
-        // Attach database read listener
+    private void onSignInInitialize(String username) {
+        mUsername = username;
+        attachDatabaseReadListener();
+    }
+
+    private void attachDatabaseReadListener() {
+        mDatabaseReference.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                // TODO Add new offer
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {}
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
     }
 
     private void onSignOutCleanUp() {
+        mUsername = ANONYMOUS;
+        // Clear adaptor
         // Detach database read listener
     }
 

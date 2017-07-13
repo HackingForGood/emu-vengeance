@@ -10,7 +10,6 @@ import android.widget.Button;
 
 public class TakeActivity extends AppCompatActivity {
 
-    private Button mOffersButton;
     private Button mRequestButton;
 
     @Override
@@ -20,28 +19,11 @@ public class TakeActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mOffersButton = (Button) findViewById(R.id.btn_offers);
-        mOffersButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "View offers!", Snackbar.LENGTH_SHORT).show();
-            }
-        });
-
         mRequestButton = (Button) findViewById(R.id.btn_request);
         mRequestButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Request food!", Snackbar.LENGTH_SHORT).show();
-            }
-        });
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
             }
         });
     }

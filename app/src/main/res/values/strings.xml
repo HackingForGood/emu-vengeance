@@ -22,7 +22,11 @@
     <string name="btn_give">Give</string>
     <string name="btn_take">Take</string>
 
+    <!-- Strings related to menu -->
     <string name="sign_out">Sign out</string>
+
+    <!-- Strings related to input hint -->
+    <string name="hint_take_title">What do you need?</string>
 
 
 </resources>
