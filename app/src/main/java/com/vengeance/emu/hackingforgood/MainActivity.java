@@ -15,7 +15,6 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
-import com.firebase.ui.auth.ResultCodes;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -31,8 +30,8 @@ import java.util.Arrays;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
-    protected static final int RC_SIGN_IN = 1;
-    protected static final int RC_TAKE = 2;
+    private static final int RC_SIGN_IN = 1;
+    private static final int RC_TAKE = 2;
     private static final String ANONYMOUS = "Anonymous";
 
     private ListView mOffersListView;
