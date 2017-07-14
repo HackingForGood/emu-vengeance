@@ -29,7 +29,6 @@ public class TakeActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 if(mTitleText.getText().length() > 0) {
-                    Log.i("Request button", mTitleText.getText().toString());
                     Intent intent = new Intent();
                     intent.putExtra("TITLE", mTitleText.getText().toString());
                     setResult(RESULT_OK, intent);

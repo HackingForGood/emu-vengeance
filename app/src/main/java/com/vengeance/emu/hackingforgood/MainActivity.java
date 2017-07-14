@@ -67,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
         mGiveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Give food!", Snackbar.LENGTH_LONG).show();
                 // TODO startActivityForResult
                 startActivity(new Intent(getApplicationContext(), GiveActivity.class));
             }
@@ -76,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
         mTakeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Take food!", Snackbar.LENGTH_LONG).show();
                 startActivityForResult(new Intent(getApplicationContext(), TakeActivity.class),
                         RC_TAKE);
             }
@@ -90,8 +88,6 @@ public class MainActivity extends AppCompatActivity {
                     // Already signed in
                     String name = user.getDisplayName();
                     onSignInInitialize(name);
-                    Toast.makeText(MainActivity.this, "Welcome to Snack Swap, " + name + "!",
-                            Toast.LENGTH_SHORT).show();
                 } else {
                     // Not signed in
                     onSignOutCleanUp();
